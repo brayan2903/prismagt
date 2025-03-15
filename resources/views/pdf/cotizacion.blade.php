@@ -261,12 +261,15 @@
                         $totalPagar = 0; // Variable para almacenar la suma total
                     @endphp
 
-                    @foreach ($resultados as $servicio)
+                        @foreach ($resultados as $servicio)
                         @php
-                            // Procesar imagen si existe, si no, usar imagen por defecto
-                            $imagen = $servicio->iFoto
-                                ? 'data:image/png;base64,' . base64_encode($servicio->iFoto)
-                                : asset('images/default.png'); // Imagen genérica
+                            // Ruta de la imagen según el Prd_Id
+                            $imagenPath = public_path("images/iconprd/{$servicio->Prd_Id}.jpg");
+
+                            // Verificar si la imagen existe en la carpeta
+                            $imagen = file_exists($imagenPath)
+                                ? asset("images/iconprd/{$servicio->Prd_Id}.jpg")
+                                : asset('images/iconprd/000130.jpg'); // Imagen genérica si no existe
 
                             // Datos del servicio
                             $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : '-';
@@ -275,7 +278,7 @@
                             $nombreServicio = $servicio->NomPrd ?? 'Sin Nombre';
                             $descripcion = $servicio->ObsItem ?? '-';
                         @endphp
-                        <!-- Primera fila (nombre e imagen) -->
+
                         <tr>
                             <td style="text-align: center;" rowspan="2">
                                 <img src="{{ $imagen }}" alt="icono" width="40">
@@ -284,11 +287,10 @@
                             <td rowspan="2">{{ $cantEqps }}</td>
                             <td rowspan="2">{{ $sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
                         </tr>
-                        <!-- Segunda fila (descripción) -->
                         <tr>
                             <td><i>{{ $descripcion }}</i></td>
                         </tr>
-                    @endforeach
+                        @endforeach
 
                     <!-- Fila de Total a Pagar -->
                     <tr style="background-color: #f0f0f0; font-weight: bold;">

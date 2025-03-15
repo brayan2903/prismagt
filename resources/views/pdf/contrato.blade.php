@@ -441,7 +441,140 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
             </table>
         </div>
 
+        <style>
+            /* Estilos personalizados */
+            .custom-report-body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+                color: #333;
+            }
+            .custom-report-title {
+                font-size: 16px;
+                margin-bottom: 10px;
+                color: #000000;
+            }
+            .custom-report-subtitle {
+                font-size: 14px;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                color: #000000;
+            }
+            .custom-report-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 15px;
+            }
+            .custom-report-table, .custom-report-table th, .custom-report-table td {
+                border: 1px solid #000000;
+            }
+            .custom-report-table th, .custom-report-table td {
+                padding: 8px;
+                text-align: left;
+            }
+            .custom-report-table th {
+                background-color: #ecf0f1;
+                color: #000000;
+            }
+            .custom-report-strong {
+                font-weight: bold;
+            }
+            .custom-report-em {
+                font-style: italic;
+            }
+            .custom-page-break {
+                page-break-after: always; /* Forza un salto de página después de este elemento */
+            }
+        </style>
+    </head>
+    <body class="custom-report-body">
+        <!-- Salto de página inicial -->
+        <pagebreak />
 
+        <!-- Contenido después del salto de página -->
+        <div class="contract-title">ANEXOS</div>
+        <div class="contract-title">TERMINOS Y CONDICIONES TARIFARIOS</div>
+        <div class="contract-title">COSTOS DE IMPLEMENTACIÓN Y FORMA DE PAGO DE ERP “PRISMA”</div>
+
+        <h4 class="custom-report-subtitle">COSTO DE IMPLEMENTACIÓN</h4>
+        <p><em class="custom-report-em">Implementación Pago por única Vez</em></p>
+
+        <table class="custom-report-table">
+            <tr>
+                <th>Módulos Comerciales</th>
+            </tr>
+            <tr>
+                <td>Módulos de Punto de Venta y Distribución</td>
+            </tr>
+        </table>
+
+        <p><strong class="custom-report-strong">TOTAL => Implementación US$ 350.00 + IGV</strong></p>
+        <p><strong class="custom-report-strong">Forma de Pago:</strong> El pago es un pago por única vez y anticipado para la implementación.<br>
+        Puede hacer el Pago en Soles al tipo Cambio Venta Sunat.</p>
+
+        <h4 class="custom-report-subtitle">INVERSIÓN POR SOPORTE Y MANTENIMIENTO ANUAL</h4>
+
+        <h4 class="custom-report-subtitle">SOPORTE Y MANTENIMIENTO POST VENTA</h4>
+
+        <table class="custom-report-table">
+            <tr>
+                <th>Descripción</th>
+                <th>Costo US$ Anual</th>
+            </tr>
+            <tr>
+                <td>Ventas Por Distribución</td>
+                <td>US$ 420.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Módulos de Punto de Venta</td>
+                <td>US$ 360.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Toma Pedidos Móviles (hasta 10 Equipos)</td>
+                <td>US$ 216.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Facturación Electrónica</td>
+                <td>US$ 216.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Certificado (PSE) para la Firma Digital</td>
+                <td>US$ 60.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Dominio para la Conectividad</td>
+                <td>US$ 48.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Módulos de Producción</td>
+                <td>US$ 300.00 + IGV</td>
+            </tr>
+        </table>
+
+        <p><strong class="custom-report-strong">TOTAL => Mantenimiento US$ 1,620.00 + IGV</strong></p>
+
+        <h4 class="custom-report-subtitle">MÓDULOS sin "Membresía"</h4>
+
+        <table class="custom-report-table">
+            <tr>
+                <th>Plan / Periodo</th>
+                <th>Costo Anual US$</th>
+            </tr>
+            <tr>
+                <td>Módulo Contabilidad</td>
+                <td>US$ 360.00 + IGV</td>
+            </tr>
+            <tr>
+                <td>Módulo de Planillas de trabajadores</td>
+                <td>US$ 144.00 + IGV</td>
+            </tr>
+        </table>
+
+        <p><strong class="custom-report-strong">TOTAL => Mantenimiento Total por AÑO US$ 504.00 + IGV</strong></p>
+
+        <div class="contract-content text-right">
+            <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
+        </div>
+</body>
 </body>
 </html>
 
