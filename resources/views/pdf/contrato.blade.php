@@ -203,7 +203,7 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
             <!-- Sección de derechos de instalación y uso -->
             <div class="contract-section">
                 <div class="contract-subtitle bold">
-                    2. DERECHOS DE INSTALACIÓN Y USO
+                    2. DERECHOS DE INSTALACIÓN Y USO.
                 </div>
                 <div class="contract-content contract-list">
                     <p class="list-item"><span class="bold">2.1</span> El cliente tiene derecho al uso de todos los módulos Suscritos del ERP Prisma en tanto este vigente su suscripción.</p>
