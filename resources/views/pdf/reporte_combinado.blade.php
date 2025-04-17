@@ -440,7 +440,6 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                 </tr>
             </table>
         </div>
-
         <style>
             /* Estilos personalizados */
             .custom-report-body {
@@ -485,97 +484,77 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                 page-break-after: always; /* Forza un salto de página después de este elemento */
             }
         </style>
-    </head>
-    {{-- <body class="custom-report-body">
-        <!-- Salto de página inicial -->
-        <pagebreak />
+        </head>
+        <body class="custom-report-body">
+            <!-- Salto de página inicial -->
+            <pagebreak />
 
-        <!-- Contenido después del salto de página -->
-        <div class="contract-title">ANEXOS</div>
-        <div class="contract-title">TERMINOS Y CONDICIONES TARIFARIOS</div>
-        <div class="contract-title">COSTOS DE IMPLEMENTACIÓN Y FORMA DE PAGO DE ERP “PRISMA”</div>
+            <!-- Contenido después del salto de página -->
+            <div class="contract-title">ANEXOS</div>
+            <div class="contract-title">TERMINOS Y CONDICIONES TARIFARIOS</div>
+            <div class="contract-title">COSTOS DE INVERSIÓN POR SOPORTE Y MANTENIMIENTO ANUAL</div>
 
-        <h4 class="custom-report-subtitle">COSTO DE IMPLEMENTACIÓN</h4>
-        <p><em class="custom-report-em">Implementación Pago por única Vez</em></p>
+            <h4>INVERSIÓN PARA MEMBRESIA ANUAL</h4>
 
-        <table class="custom-report-table">
-            <tr>
-                <th>Módulos Comerciales</th>
-            </tr>
-            <tr>
-                <td>Módulos de Punto de Venta y Distribución</td>
-            </tr>
-        </table>
+<table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Ícono</th>
+            <th>Servicio</th>
+            <th>Cant. Eqps</th>
+            <th>Importe Anual</th>
+        </tr>
+    </thead>
+    <tbody>
+        @php
+            $totalPagar = 0;
+            $totalEquipos = 0;
+        @endphp
 
-        <p><strong class="custom-report-strong">TOTAL => Implementación US$ 350.00 + IGV</strong></p>
-        <p><strong class="custom-report-strong">Forma de Pago:</strong> El pago es un pago por única vez y anticipado para la implementación.<br>
-        Puede hacer el Pago en Soles al tipo Cambio Venta Sunat.</p>
+        @foreach ($resultados as $servicio)
+            @php
+                // Procesar la imagen del servicio
+                $imagenPath = public_path("images/iconprd/{$servicio->Prd_Id}.jpg");
+                $imagenExists = file_exists($imagenPath);
 
-        <h4 class="custom-report-subtitle">INVERSIÓN POR SOPORTE Y MANTENIMIENTO ANUAL</h4>
+                // Calcular valores
+                $valPerYear = ($servicio->ValVtaUniD ?? 0) * 12;
+                $totalPagar += $valPerYear;
+                $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
+                $totalEquipos += $cantEqps;
+                $obsItem = $servicio->ObsItem ?? '';
+            @endphp
 
-        <h4 class="custom-report-subtitle">SOPORTE Y MANTENIMIENTO POST VENTA</h4>
+            <tr>
+                <td align="center">
+                    @if($imagenExists)
+                        <img src="{{ public_path("images/iconprd/{$servicio->Prd_Id}.jpg") }}" alt="icono" width="40">
+                    @else
+                        📄
+                    @endif
+                </td>
+                <td>
+                    <b>{{ $servicio->NomPrd ?? 'Sin Nombre' }}</b>
+                    @if(!empty($obsItem))
+                        <br><i>{{ $obsItem }}</i>
+                    @endif
+                </td>
+                <td align="center">{{ $cantEqps > 0 ? $cantEqps : '-' }}</td>
+                <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
+            </tr>
+        @endforeach
 
-        <table class="custom-report-table">
-            <tr>
-                <th>Descripción</th>
-                <th>Costo US$ Anual</th>
-            </tr>
-            <tr>
-                <td>Ventas Por Distribución</td>
-                <td>US$ 420.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Módulos de Punto de Venta</td>
-                <td>US$ 360.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Toma Pedidos Móviles (hasta 10 Equipos)</td>
-                <td>US$ 216.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Facturación Electrónica</td>
-                <td>US$ 216.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Certificado (PSE) para la Firma Digital</td>
-                <td>US$ 60.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Dominio para la Conectividad</td>
-                <td>US$ 48.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Módulos de Producción</td>
-                <td>US$ 300.00 + IGV</td>
-            </tr>
-        </table>
+        <tr>
+            <td colspan="2" align="right"><strong>TOTAL A PAGAR:</strong></td>
+            <td align="center"><strong>{{ $totalEquipos > 0 ? $totalEquipos : '-' }}</strong></td>
+            <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} +IGV</strong></td>
+        </tr>
+    </tbody>
+</table>
 
-        <p><strong class="custom-report-strong">TOTAL => Mantenimiento US$ 1,620.00 + IGV</strong></p>
-
-        <h4 class="custom-report-subtitle">MÓDULOS sin "Membresía"</h4>
-
-        <table class="custom-report-table">
-            <tr>
-                <th>Plan / Periodo</th>
-                <th>Costo Anual US$</th>
-            </tr>
-            <tr>
-                <td>Módulo Contabilidad</td>
-                <td>US$ 360.00 + IGV</td>
-            </tr>
-            <tr>
-                <td>Módulo de Planillas de trabajadores</td>
-                <td>US$ 144.00 + IGV</td>
-            </tr>
-        </table>
-
-        <p><strong class="custom-report-strong">TOTAL => Mantenimiento Total por AÑO US$ 504.00 + IGV</strong></p>
-
-        <div class="contract-content text-right">
-            <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
-        </div>
-</body> --}}
+            <div class="contract-content text-right">
+                <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
+            </div>
+        </body>
 </body>
 </html>
-
-

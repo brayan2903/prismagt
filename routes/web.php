@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
 //Route::get('/pdf', [Pdfcontroller::class, 'generatePdf']);
 Route::get('/contrato/{ruc}', [PdfController::class, 'contratoPdf']);
 Route::get('/cotizacion/{param2}', [PdfController::class, 'cotizacionPdf']);
+Route::get('/cotizacionx/{param2}', [PdfController::class, 'cotizacionPdfx']);
+Route::get('/reporte-combinado/{param2}', [PdfController::class, 'reporteCombinadoPdf']);
 
 Route::get('/reportes', function () {
     return Inertia::render('reportes/reportes'); // Si está en /resources/js/Pages/Reportes/Reportes.vue
