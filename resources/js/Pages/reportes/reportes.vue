@@ -9,8 +9,8 @@
         <a-card title="Generar Reporte de Contrato" style="margin-bottom: 20px;">
           <a-space>
             <a-input v-model:value="ruc" placeholder="Ingrese el RUC" style="width: 250px" />
-            <a-button type="primary" @click="descargarContrato" >
-              Generar Contrato PDF
+            <a-button type="primary" @click="descargarContrato">
+              Contrato PDF
             </a-button>
           </a-space>
           <p v-if="errorMensajeContrato" style="color: red; margin-top: 10px;">{{ errorMensajeContrato }}</p>
@@ -21,7 +21,10 @@
           <a-space>
             <a-input v-model:value="cotizacion" placeholder="Ingrese el Número de Cotización" style="width: 250px" />
             <a-button type="primary" @click="descargarCotizacion">
-              Generar Cotización PDF
+              Cotización PDF
+            </a-button>
+            <a-button type="primary" @click="descargarCombinado" style="margin-left: 10px;">
+              Contrato PDF
             </a-button>
           </a-space>
           <p v-if="errorMensajeCotizacion" style="color: red; margin-top: 10px;">{{ errorMensajeCotizacion }}</p>
@@ -33,10 +36,12 @@
   <script>
   import { defineComponent, ref } from "vue";
   import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+  import { FilePdfOutlined } from '@ant-design/icons-vue';
 
   export default defineComponent({
     name: "Reportes",
     components: { AuthenticatedLayout },
+    components: { AuthenticatedLayout, FilePdfOutlined },
     setup() {
       // Variables para el contrato
       const ruc = ref("");
@@ -66,9 +71,20 @@
         window.open(`/cotizacion/${cotizacion.value}`, "_blank");
       };
 
+      // Función para descargar el reporte combinado
+      const descargarCombinado = () => {
+        if (!cotizacion.value) {
+          errorMensajeCotizacion.value = "Por favor, ingrese un número de cotización válido.";
+          return;
+        }
+        errorMensajeCotizacion.value = "";
+        window.open(`/reporte-combinado/${cotizacion.value}`, "_blank");
+      };
+
       return {
         ruc, errorMensajeContrato, descargarContrato,
-        cotizacion, errorMensajeCotizacion, descargarCotizacion
+        cotizacion, errorMensajeCotizacion, descargarCotizacion,
+        descargarCombinado
       };
     },
   });
