@@ -518,7 +518,7 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                 $imagenExists = file_exists($imagenPath);
 
                 // Calcular valores
-                $valPerYear = ($servicio->ValVtaUniD ?? 0) * 12;
+                $valPerYear = ($servicio->ValVtaUniD ?? 0); // aqui era ValVtaUniD
                 $totalPagar += $valPerYear;
                 $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
                 $totalEquipos += $cantEqps;
