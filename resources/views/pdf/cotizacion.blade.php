@@ -305,7 +305,7 @@
                             $imagenExists = file_exists($imagenPath);
 
                             // Calcular valores
-                            $valPerYear = ($servicio->ValVtaUniD ?? 0) * 12;
+                            $valPerYear = ($servicio->ValVtaUniD ?? 0); //ImpTotD / ValVtaUniD
                             $totalPagar += $valPerYear;
                             $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
                             $totalEquipos += $cantEqps;

@@ -7,26 +7,36 @@
       <div>
         <!-- Generar Reporte de Contrato -->
         <a-card title="Generar Reporte de Contrato" style="margin-bottom: 20px;">
-          <a-space>
-            <a-input v-model:value="ruc" placeholder="Ingrese el RUC" style="width: 250px" />
-            <a-button type="primary" @click="descargarContrato">
-              Contrato PDF
-            </a-button>
-          </a-space>
+          <a-row :gutter="[16, 16]">
+            <a-col :xs="24" :sm="16" :md="12" :lg="8">
+              <a-input v-model:value="ruc" placeholder="Ingrese el RUC" />
+            </a-col>
+            <a-col :xs="24" :sm="8" :md="6" :lg="4">
+              <a-button type="primary" block @click="descargarContrato">
+                Contrato PDF
+              </a-button>
+            </a-col>
+          </a-row>
           <p v-if="errorMensajeContrato" style="color: red; margin-top: 10px;">{{ errorMensajeContrato }}</p>
         </a-card>
 
         <!-- Generar Reporte de Cotización -->
         <a-card title="Generar Reporte de Cotización">
-          <a-space>
-            <a-input v-model:value="cotizacion" placeholder="Ingrese el Número de Cotización" style="width: 250px" />
-            <a-button type="primary" @click="descargarCotizacion">
-              Cotización PDF
-            </a-button>
-            <a-button type="primary" @click="descargarCombinado" style="margin-left: 10px;">
-              Contrato PDF
-            </a-button>
-          </a-space>
+          <a-row :gutter="[16, 16]">
+            <a-col :xs="24" :sm="16" :md="12" :lg="8">
+              <a-input v-model:value="cotizacion" placeholder="Ingrese el Número de Cotización" />
+            </a-col>
+            <a-col :xs="24" :sm="8" :md="6" :lg="4">
+              <a-button type="primary" block @click="descargarCotizacion">
+                Cotización PDF
+              </a-button>
+            </a-col>
+            <a-col :xs="24" :sm="8" :md="6" :lg="4">
+              <a-button type="primary" block @click="descargarCombinado">
+                Contrato PDF
+              </a-button>
+            </a-col>
+          </a-row>
           <p v-if="errorMensajeCotizacion" style="color: red; margin-top: 10px;">{{ errorMensajeCotizacion }}</p>
         </a-card>
       </div>
@@ -40,8 +50,10 @@
 
   export default defineComponent({
     name: "Reportes",
-    components: { AuthenticatedLayout },
-    components: { AuthenticatedLayout, FilePdfOutlined },
+    components: {
+      AuthenticatedLayout,
+      FilePdfOutlined,
+    },
     setup() {
       // Variables para el contrato
       const ruc = ref("");
@@ -82,9 +94,13 @@
       };
 
       return {
-        ruc, errorMensajeContrato, descargarContrato,
-        cotizacion, errorMensajeCotizacion, descargarCotizacion,
-        descargarCombinado
+        ruc,
+        errorMensajeContrato,
+        descargarContrato,
+        cotizacion,
+        errorMensajeCotizacion,
+        descargarCotizacion,
+        descargarCombinado,
       };
     },
   });
