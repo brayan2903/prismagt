@@ -398,7 +398,8 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
             <p>Ambas partes se ratifican en el contenido del presente documento, y no habiendo mediado de la voluntad que pueda anularlo, lo firman en señal de conformidad, por duplicado.<br></p>
         </div>
     <div class="contract-content text-right">
-        <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
+        {{-- <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p> --}}
+        <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->locale('es')->format('d \d\e F \d\e Y') }}</p>
     </div>
 
     </div>
@@ -496,64 +497,73 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
 
             <h4>INVERSIÓN PARA MEMBRESIA ANUAL</h4>
 
-<table border="1" cellspacing="0" cellpadding="5">
-    <thead>
-        <tr>
-            <th>Ícono</th>
-            <th>Servicio</th>
-            <th>Cant. Eqps</th>
-            <th>Importe Anual</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php
-            $totalPagar = 0;
-            $totalEquipos = 0;
-        @endphp
+            <table border="1" cellspacing="0" cellpadding="5">
+                <thead>
+                    <tr>
+                        <th>Ícono</th>
+                        <th>Servicio</th>
+                        <th>Cant. Eqps</th>
+                        <th>Cost. Mens.</th> {{-- Nueva columna --}}
+                        <th>Imp. Anual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $totalPagar = 0;
+                        $totalEquipos = 0;
+                    @endphp
 
-        @foreach ($resultados as $servicio)
-            @php
-                // Procesar la imagen del servicio
-                $imagenPath = public_path("images/iconprd/{$servicio->Prd_Id}.jpg");
-                $imagenExists = file_exists($imagenPath);
+                    @foreach ($resultados as $servicio)
+                        @php
+                            // Procesar la imagen del servicio
+                            $imagenPath = public_path("images/iconprd/{$servicio->Prd_Id}.jpg");
+                            $imagenExists = file_exists($imagenPath);
 
-                // Calcular valores
-                $valPerYear = ($servicio->ValVtaUniD ?? 0); // aqui era ValVtaUniD
-                $totalPagar += $valPerYear;
-                $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
-                $totalEquipos += $cantEqps;
-                $obsItem = $servicio->ObsItem ?? '';
-            @endphp
+                            // Calcular valores
+                            $valPerYear = ($servicio->ValVtaUniD ?? 0);
+                            $valPerMonth = $valPerYear / 12;
+                            $totalPagar += $valPerYear;
 
-            <tr>
-                <td align="center">
-                    @if($imagenExists)
-                        <img src="{{ public_path("images/iconprd/{$servicio->Prd_Id}.jpg") }}" alt="icono" width="40">
-                    @else
-                        📄
-                    @endif
-                </td>
-                <td>
-                    <b>{{ $servicio->NomPrd ?? 'Sin Nombre' }}</b>
-                    @if(!empty($obsItem))
-                        <br><i>{{ $obsItem }}</i>
-                    @endif
-                </td>
-                <td align="center">{{ $cantEqps > 0 ? $cantEqps : '-' }}</td>
-                <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
-            </tr>
-        @endforeach
+                            $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
+                            $totalEquipos += $cantEqps;
+                            $obsItem = $servicio->ObsItem ?? '';
+                        @endphp
 
-        <tr>
-            <td colspan="2" align="right"><strong>TOTAL A PAGAR:</strong></td>
-            <td align="center"><strong>{{ $totalEquipos > 0 ? $totalEquipos : '-' }}</strong></td>
-            <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} +IGV</strong></td>
-        </tr>
-    </tbody>
-</table>
+                        <tr>
+                            <td align="center">
+                                @if($imagenExists)
+                                    <img src="{{ public_path("images/iconprd/{$servicio->Prd_Id}.jpg") }}" alt="icono" width="40">
+                                @else
+                                    📄
+                                @endif
+                            </td>
+                            <td>
+                                <b>{{ $servicio->NomPrd ?? 'Sin Nombre' }}</b>
+                                @if(!empty($obsItem))
+                                    <br><i>{{ $obsItem }}</i>
+                                @endif
+                            </td>
+                            <td align="center">{{ $cantEqps > 0 ? $cantEqps : '-' }}</td>
+                            <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerMonth, 2) }}</td>
+                            <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
+                        </tr>
+                    @endforeach
+
+                    <tr>
+                        <td colspan="2" align="right"><strong>TOTAL A PAGAR:</strong></td>
+                        <td align="center"><strong>{{ $totalEquipos > 0 ? $totalEquipos : '-' }}</strong></td>
+                        <td></td> {{-- Columna vacía para "Costo Mensual" del total --}}
+                        <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} +IGV</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
 
             <div class="contract-content text-right">
-                <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
+                {{-- <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
+                <p><br>Celebrado en la Ciudad de Lima, el {{ $resultados[0]->FDoc ?? 'No hay datos' }}</p>
+                <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->format('d \d\e F \d\e Y') }}</p> --}}
+                <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->locale('es')->format('d \d\e F \d\e Y') }}</p>
             </div>
         </body>
 </body>

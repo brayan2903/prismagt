@@ -288,25 +288,33 @@
 
             <h2>INVERSIÓN PARA MEMBRESIA ANUAL</h2>
 
-            <table class="table" border="1" cellspacing="0" cellpadding="5">
+            <table border="1" cellspacing="0" cellpadding="5">
                 <thead>
                     <tr>
-                        <th width="50"></th>
+                        <th>Ícono</th>
                         <th>Servicio</th>
-                        <th width="80">Cant. Eqps</th>
-                        <th width="150">Importe Anual</th>
+                        <th>Cant. Eqps</th>
+                        <th>Cost. Mens.</th> {{-- Nueva columna --}}
+                        <th>Imp. Anual</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $totalPagar = 0;
+                        $totalEquipos = 0;
+                    @endphp
+
                     @foreach ($resultados as $servicio)
                         @php
-                            // Procesar imagen
+                            // Procesar la imagen del servicio
                             $imagenPath = public_path("images/iconprd/{$servicio->Prd_Id}.jpg");
                             $imagenExists = file_exists($imagenPath);
 
                             // Calcular valores
-                            $valPerYear = ($servicio->ValVtaUniD ?? 0); //ImpTotD / ValVtaUniD
+                            $valPerYear = ($servicio->ValVtaUniD ?? 0);
+                            $valPerMonth = $valPerYear / 12;
                             $totalPagar += $valPerYear;
+
                             $cantEqps = $servicio->CantPza > 0 ? $servicio->CantPza : 0;
                             $totalEquipos += $cantEqps;
                             $obsItem = $servicio->ObsItem ?? '';
@@ -327,17 +335,20 @@
                                 @endif
                             </td>
                             <td align="center">{{ $cantEqps > 0 ? $cantEqps : '-' }}</td>
+                            <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerMonth, 2) }}</td>
                             <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
                         </tr>
                     @endforeach
 
                     <tr>
-                        <td colspan="2" align="right"><strong>Total a Pagar:</strong></td>
+                        <td colspan="2" align="right"><strong>TOTAL A PAGAR:</strong></td>
                         <td align="center"><strong>{{ $totalEquipos > 0 ? $totalEquipos : '-' }}</strong></td>
+                        <td></td> {{-- Columna vacía para "Costo Mensual" del total --}}
                         <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} +IGV</strong></td>
                     </tr>
                 </tbody>
             </table>
+
         </div>
 
             <p style="font-size: 12px; color: #666; text-align: center;">
