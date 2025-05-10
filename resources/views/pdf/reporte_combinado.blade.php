@@ -399,8 +399,8 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
         </div>
     <div class="contract-content text-right">
         {{-- <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p> --}}
-        <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->locale('es')->format('d \d\e F \d\e Y') }}</p>
-    </div>
+        <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc ?? now())->translatedFormat('d \d\e F \d\e Y') }}</p>
+       </div>
 
     </div>
     <br>
@@ -563,7 +563,8 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                 {{-- <p><br>Celebrado en la Ciudad de Lima, el {{ $fecha_actual }}</p>
                 <p><br>Celebrado en la Ciudad de Lima, el {{ $resultados[0]->FDoc ?? 'No hay datos' }}</p>
                 <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->format('d \d\e F \d\e Y') }}</p> --}}
-                <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc)->locale('es')->format('d \d\e F \d\e Y') }}</p>
+                <p><br>Celebrado en la Ciudad de Lima, el {{ \Carbon\Carbon::parse($resultados[0]->FDoc ?? now())->translatedFormat('d \d\e F \d\e Y') }}</p>
+
             </div>
         </body>
 </body>
