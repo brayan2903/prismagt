@@ -545,7 +545,7 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                             </td>
                             <td align="center">{{ $cantEqps > 0 ? $cantEqps : '-' }}</td>
                             <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerMonth, 2) }}</td>
-                            <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} +IGV</td>
+                            <td align="right">{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($valPerYear, 2) }} + IGV</td>
                         </tr>
                     @endforeach
 
@@ -553,7 +553,7 @@ $fecha_actual = Carbon::now()->translatedFormat('d \d\e F \d\e\l Y');
                         <td colspan="2" align="right"><strong>TOTAL A PAGAR:</strong></td>
                         <td align="center"><strong>{{ $totalEquipos > 0 ? $totalEquipos : '-' }}</strong></td>
                         <td></td> {{-- Columna vacía para "Costo Mensual" del total --}}
-                        <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} +IGV</strong></td>
+                        <td align="right"><strong>{{ $resultados[0]->sMnd ?? 'S/' }}{{ number_format($totalPagar, 2) }} + IGV</strong></td>
                     </tr>
                 </tbody>
             </table>

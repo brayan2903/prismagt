@@ -69,5 +69,7 @@ Route::get('/clientes/osxperiodo', function () {
     return Inertia::render('clientes/osxperiodo'); // El nombre del archivo en Vue debe ser `osxperiodo.vue`
 })->name('clientes.osxperiodo');
 
-
+Route::get('/terminos-de-uso', function () {
+    return Inertia::render('Terminos/TerminosDeUso');
+})->name('terminos.uso');
 require __DIR__.'/auth.php';
