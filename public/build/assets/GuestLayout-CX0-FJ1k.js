@@ -1,1 +1,0 @@
-import{_ as s}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{c as t,o,b as r,j as c}from"./app-Dc0bOfY_.js";const a={},n={class:"flex h-screen items-center justify-center bg-gray-200 px-6"},d={class:"w-full max-w-sm rounded-md bg-white p-6 shadow-md"};function _(e,i){return o(),t("div",n,[r("div",d,[c(e.$slots,"default")])])}const f=s(a,[["render",_]]);export{f as G};
