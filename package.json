@@ -20,6 +20,10 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "ant-design-vue": "^4.2.6"
+        "ant-design-vue": "^4.2.6",
+        "chart.js": "^4.5.1",
+        "chartjs-plugin-datalabels": "^2.2.0",
+        "vue-chartjs": "^5.3.3",
+        "xlsx": "^0.18.5"
     }
 }

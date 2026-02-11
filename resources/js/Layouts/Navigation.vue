@@ -34,7 +34,7 @@ let showingTwoLevelMenu = ref(false)
                 Dashboard
             </nav-link>
 
-            <nav-link :href="route('users.index')" :active="route().current('users.index')">
+            <!-- <nav-link :href="route('users.index')" :active="route().current('users.index')">
                 <template #icon>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@ let showingTwoLevelMenu = ref(false)
                     </svg>
                 </template>
                 Users
-            </nav-link>
+            </nav-link> -->
 
             <!-- <nav-link :href="route('about')" :active="route().current('about')">
                 <template #icon>
@@ -89,7 +89,45 @@ let showingTwoLevelMenu = ref(false)
                 Reportes cotizacion y contrato
             </nav-link>
 
-            <a class="flex items-center mt-4 py-2 px-6 text-gray-100" href="#" @click="showingTwoLevelMenu = !showingTwoLevelMenu">
+
+            <nav-link :href="route('reportes.historial')" :active="route().current('reportes.historial')">
+                <template #icon>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                    </svg>
+                </template>
+                reportes historial
+            </nav-link>
+
+
+            <nav-link :href="route('reportes.comparativo')" :active="route().current('reportes.comparativo')">
+                <template #icon>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                    </svg>
+                </template>
+                reportes comparativo
+            </nav-link>
+
+
+            <nav-link :href="route('reportes.criticos')" :active="route().current('reportes.criticos')">
+                <template #icon>
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                    </svg>
+                </template>
+                Reporte Crítico
+            </nav-link>
+
+
+
+            <!-- <a class="flex items-center mt-4 py-2 px-6 text-gray-100" href="#" @click="showingTwoLevelMenu = !showingTwoLevelMenu">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"></path>
@@ -109,7 +147,7 @@ let showingTwoLevelMenu = ref(false)
                         </li>
                     </ul>
                 </div>
-            </transition>
+            </transition> -->
         </nav>
     </div>
 </template>

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Pdfcontroller;
 use App\Http\Controllers\Clientescontroller;
+use App\Http\Controllers\ComparativoController;
+use App\Http\Controllers\ReporteCriticoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,4 +74,38 @@ Route::get('/clientes/osxperiodo', function () {
 Route::get('/terminos-de-uso', function () {
     return Inertia::render('Terminos/TerminosDeUso');
 })->name('terminos.uso');
+
+
+// Ruta para la vista (Inertia)
+Route::get('/reportes/historial', function () {return Inertia::render('reportes/HistorialEmpresa');})->name('reportes.historial');
+// Rutas API para obtener datos
+Route::get('/api/historial-empresa', [ClientesController::class, 'historialEmpresa']);
+Route::get('/api/obtener-tipos', [ClientesController::class, 'obtenerTipos']);
+Route::get('/api/buscar-empresas', [ClientesController::class, 'buscarEmpresas']);
+
+
+Route::get('/reportes/comparativo', function () {
+    return Inertia::render('reportes/ComparativoPrecios');
+})->name('reportes.comparativo');
+
+// 2. RUTAS API (Datos para los selectores y la tabla)
+Route::get('/api/comparativo-precios', [ComparativoController::class, 'procesarComparacion']);
+Route::get('/api/lista-productos', [ComparativoController::class, 'obtenerProductos']);
+Route::get('/api/lista-tipos', [ComparativoController::class, 'obtenerTipos']);
+
+
+
+
+    // 1. Ruta para visualizar la página (Render)
+    Route::get('/reportes/criticos', function () {
+        // Asegúrate de que la carpeta sea 'reportes' (minúscula)
+        // y el archivo 'ReporteCritico.vue'
+        return Inertia::render('reportes/ReporteCritico');
+    })->name('reportes.criticos');
+
+    // 2. Ruta API para obtener los datos JSON
+    Route::get('/api/reporte-critico', [ReporteCriticoController::class, 'obtenerCriticos'])
+        ->name('api.reporte.critico');
+
+
 require __DIR__.'/auth.php';
